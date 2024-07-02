@@ -46,8 +46,14 @@ import TaskForm from './components/TaskForm.vue'
 
 import { useTaskStore } from './stores/TaskStore'
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
-const taskStore = useTaskStore();
-taskStore.getTasks();
-const filter = ref('all');
+const taskStore = useTaskStore()
+
+const { tasks, loading, favs, totalCount, favCount } = storeToRefs(taskStore)
+
+// fetch tasks
+taskStore.getTasks()
+
+const filter = ref('all')
 </script>
