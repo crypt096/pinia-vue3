@@ -20,7 +20,16 @@ export const useTaskStore = defineStore('taskStore', {
     }
   },
   actions: {
-    
+    async getTasks() {
+      this.loading = true
+
+      // get data from json file using json server
+      const res = await fetch('http://localhost:3000/tasks')
+      const data = await res.json()
+
+      this.tasks = data
+      this.loading = false
+    },
     async addTask(task: Task) {
       this.tasks.push(task)
 
