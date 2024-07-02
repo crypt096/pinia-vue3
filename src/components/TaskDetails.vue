@@ -11,7 +11,7 @@
 <script setup lang="ts">
 import { Task } from '../interfaces/task.interface.ts';
 
-defineProps<{
+const props = defineProps<{
   task?: Task
 }>()
 </script>
