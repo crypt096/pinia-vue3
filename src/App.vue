@@ -19,5 +19,8 @@
 </template>
 
 <script setup lang="ts">
+import TaskDetails from './components/TaskDetails.vue';
+import { useTaskStore } from './stores/TaskStore';
 
+const taskStore = useTaskStore();
 </script>
