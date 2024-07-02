@@ -3,17 +3,15 @@ import { defineStore } from 'pinia'
 
 export const useTaskStore = defineStore('taskStore', {
   state: () => ({
-    tasks: [
-      {id: 1, title: "buy some milk", isFav: false},
-      {id: 2, title: "play Gloomhaven", isFav: true}
-    ]
+    tasks: [],
+    loading: false
   }),
   getters: {
     favs(): Task[] {
-      return this.tasks.filter(t => t.isFav)
+      return this.tasks.filter((t: Task) => t.isFav)
     },
     favCount(): number {
-      return this.tasks.reduce((p, c) => {
+      return this.tasks.reduce((p, c: Task) => {
         return c.isFav ? p + 1 : p
       }, 0)
     },
@@ -22,6 +20,16 @@ export const useTaskStore = defineStore('taskStore', {
     }
   },
   actions: {
+    async getTasks() {
+      this.loading = true
+
+      // get data from json file using json server
+      const res = await fetch('http://localhost:3000/tasks')
+      const data = await res.json()
+
+      this.tasks = data
+      this.loading = false
+    },
     addTask(task: Task) {
       this.tasks.push(task)
     },
@@ -31,8 +39,10 @@ export const useTaskStore = defineStore('taskStore', {
       })
     },
     toggleFav(id: number) {
-      const task = this.tasks.find(t => t.id === id) as Task
-      task.isFav = !task.isFav
+      const task = this.tasks.find((t: Task) => t.id === id)
+      if (task) {
+        task.isFav = !task.isFav
+      }
     }
   }
 })
