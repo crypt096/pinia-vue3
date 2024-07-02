@@ -31,10 +31,13 @@
 </template>
 
 <script setup lang="ts">
-import TaskDetails from './components/TaskDetails.vue';
-import { useTaskStore } from './stores/TaskStore';
-import { ref } from 'vue';
+import TaskDetails from './components/TaskDetails.vue'
+import TaskForm from './components/TaskForm.vue'
+
+import { useTaskStore } from './stores/TaskStore'
+import { ref } from 'vue'
 
 const taskStore = useTaskStore();
+taskStore.getTasks();
 const filter = ref('all');
 </script>
